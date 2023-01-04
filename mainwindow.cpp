@@ -1,12 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QDebug>
-#include <QDialog>
-#include <QDialogButtonBox>
-#include <QLabel>
-#include <QMenu>
-#include <QStandardItemModel>
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) , ui(new Ui::MainWindow){
     ui->setupUi(this);
@@ -19,13 +13,13 @@ MainWindow::~MainWindow(){
 
 void MainWindow::init(){
     //表头设置
-    model->setColumnCount(3);
     QStringList table_headers;
     table_headers<<"职员ID"<<"姓名"<<"工资";
     model->setHorizontalHeaderLabels(table_headers);
-    //
 
+    //一些按键的信号槽绑定
     connect(ui->AddButton,&QPushButton::clicked,this,&MainWindow::Addmember);
+    connect(ui->SearchButton,&QPushButton::clicked,this,&MainWindow::Serchmember);
 
     //tableview基础设置
     ui->tableView->setModel(model);
@@ -37,11 +31,11 @@ void MainWindow::init(){
 
     //右键菜单
     menu = new QMenu(ui->tableView);
-    QAction *addaction = new QAction("添加");
+    QAction *modifyaction = new QAction("修改");
     QAction *delaction = new QAction("删除");
-    menu->addAction(addaction);menu->addAction(delaction);
+    menu->addAction(modifyaction);menu->addAction(delaction);
     connect(ui->tableView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotContextMenu(QPoint)));
-    //connect(addaction,SIGNAL(triggered()),this,SLOT(addslot()));
+    connect(modifyaction,SIGNAL(triggered()),this,SLOT(modifyslot()));
     connect(delaction,SIGNAL(triggered()),this,SLOT(delslot()));
 
     //test
@@ -51,7 +45,7 @@ void MainWindow::init(){
     //
 }
 
-void MainWindow::updateview(QList<Decorater*> list){//重写view
+void MainWindow::updateview(QList<Decorater*> list){//更新talbeview  需要传入list
     model->removeRows(0,model->rowCount());
     for(auto x:list){
         QList<QStandardItem*> items;
@@ -60,8 +54,7 @@ void MainWindow::updateview(QList<Decorater*> list){//重写view
     }
 }
 
-void MainWindow::slotContextMenu(const QPoint &pos)
-{
+void MainWindow::slotContextMenu(const QPoint &pos){
     auto index = ui->tableView->indexAt(pos);
     if (index.isValid()){
         menu->exec(QCursor::pos());
@@ -69,15 +62,20 @@ void MainWindow::slotContextMenu(const QPoint &pos)
 }
 
 void MainWindow::Addmember(){
+    //
     QDialog dialog(this);
     QFormLayout form(&dialog);
-    form.addRow(new QLabel("输入员工信息"));
+    form.addRow(new QLabel("输入员工信息:"));
+
     QLineEdit *idtxt=new QLineEdit(&dialog);
     form.addRow("员工ID",idtxt);
+
     QLineEdit *nametxt=new QLineEdit(&dialog);
     form.addRow("姓名",nametxt);
+
     QLineEdit *salarytxt=new QLineEdit(&dialog);
     form.addRow("工资",salarytxt);
+
     QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
         Qt::Horizontal, &dialog);
     form.addRow(&buttonBox);
@@ -90,6 +88,11 @@ void MainWindow::Addmember(){
     //qDebug()<<"??";
 }
 
+void MainWindow::Serchmember()
+{
+
+}
+
 
 
 void MainWindow::delslot(){
@@ -97,6 +100,39 @@ void MainWindow::delslot(){
     //qDebug()<<"no";
     //得到要删除的员工id后要做什么
 
+}
+
+void MainWindow::modifyslot(){
+
+    int id=model->data(model->index(ui->tableView->currentIndex().row(),0)).toInt();
+    QString name=model->data(model->index(ui->tableView->currentIndex().row(),1)).toString();
+    int salary=model->data(model->index(ui->tableView->currentIndex().row(),2)).toInt();
+    QDialog dialog(this);
+    QFormLayout form(&dialog);
+    form.addRow(new QLabel("要修改的员工信息:"));
+
+    QLineEdit *idtxt=new QLineEdit(&dialog);
+    idtxt->setText(QString::number(id));
+    form.addRow("员工ID",idtxt);
+
+    QLineEdit *nametxt=new QLineEdit(&dialog);
+    nametxt->setText(name);
+    form.addRow("姓名",nametxt);
+
+    QLineEdit *salarytxt=new QLineEdit(&dialog);
+    salarytxt->setText(QString::number(salary));
+    form.addRow("工资",salarytxt);
+
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+        Qt::Horizontal, &dialog);
+    form.addRow(&buttonBox);
+    connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+    connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+    if (dialog.exec() == QDialog::Accepted) {
+        // 填入添加信息后要做什么
+        qDebug()<<nametxt->text();
+    }
+    //qDebug()<<"??";
 }
 
 

@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,10">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="2,10">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout" stretch="2">
         <property name="sizeConstraint">
@@ -25,7 +25,79 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QLineEdit" name="lineEdit"/>
+           <layout class="QGridLayout" name="gridLayout">
+            <item row="3" column="1">
+             <widget class="QComboBox" name="comboBox_2"/>
+            </item>
+            <item row="3" column="2">
+             <widget class="QComboBox" name="comboBox_4"/>
+            </item>
+            <item row="0" column="0" colspan="2">
+             <widget class="QLineEdit" name="lineEdit"/>
+            </item>
+            <item row="3" column="0">
+             <widget class="QComboBox" name="comboBox_3">
+              <property name="statusTip">
+               <string/>
+              </property>
+              <item>
+               <property name="text">
+                <string>所有类别</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>职员</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>管理者</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QPushButton" name="SearchButton">
+              <property name="text">
+               <string>搜索</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QComboBox" name="comboBox">
+              <property name="placeholderText">
+               <string/>
+              </property>
+              <item>
+               <property name="text">
+                <string>模糊搜索</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>精确搜索</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>400</width>
+              <height>100</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item>
            <widget class="QPushButton" name="AddButton">
@@ -42,7 +114,11 @@
        <widget class="QWidget" name="formWidget" native="true">
         <layout class="QFormLayout" name="formLayout">
          <item row="0" column="0" colspan="2">
-          <widget class="QTableView" name="tableView"/>
+          <widget class="QTableView" name="tableView">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>

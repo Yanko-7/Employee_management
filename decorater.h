@@ -13,10 +13,16 @@ public:
     QString getname();
     int getsalary();
     Decorater(int,QString,int);
+    bool isemployee();
+
 private:
+
+
     int id;
     QString name;
     int salary;
+
+
     bool is_employee=1;
 };
 
