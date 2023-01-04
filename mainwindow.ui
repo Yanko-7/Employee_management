@@ -28,9 +28,9 @@
            <widget class="QLineEdit" name="lineEdit"/>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="AddButton">
             <property name="text">
-             <string>PushButton</string>
+             <string>添加</string>
             </property>
            </widget>
           </item>

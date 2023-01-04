@@ -25,7 +25,7 @@ private:
     QMenu *menu;
 public slots:
     void slotContextMenu(const QPoint &pos);
-    void addslot();
+    void Addmember();
     void delslot();
 };
 #endif // MAINWINDOW_H
