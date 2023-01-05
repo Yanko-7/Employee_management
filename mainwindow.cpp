@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "Manager.h"
+using namespace data;
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) , ui(new Ui::MainWindow){
     ui->setupUi(this);
@@ -14,12 +15,12 @@ MainWindow::~MainWindow(){
 void MainWindow::init(){
     //表头设置
     QStringList table_headers;
-    table_headers<<"职员ID"<<"姓名"<<"工资";
+    table_headers<<"职员ID"<<"姓名"<<"工资"<<"城市";
     model->setHorizontalHeaderLabels(table_headers);
 
     //一些按键的信号槽绑定
     connect(ui->AddButton,&QPushButton::clicked,this,&MainWindow::Addmember);
-    connect(ui->SearchButton,&QPushButton::clicked,this,&MainWindow::Serchmember);
+    connect(ui->SearchButton,&QPushButton::clicked,this,&MainWindow::Searchmember);
 
     //tableview基础设置
     ui->tableView->setModel(model);
@@ -40,19 +41,11 @@ void MainWindow::init(){
 
     //test
     qDebug()<<model->rowCount();
-    QList<Decorater*> list;list<<new Decorater(1,"w1",2)<<new Decorater(2,"w2",3);
-    updateview(list);
+    //QList<Decorater*> list;list<<new Decorater(1,"w1",2)<<new Decorater(2,"w2",3);
+    //updateview(list);
     //
 }
 
-void MainWindow::updateview(QList<Decorater*> list){//更新talbeview  需要传入list
-    model->removeRows(0,model->rowCount());
-    for(auto x:list){
-        QList<QStandardItem*> items;
-        items<<new QStandardItem(QString::number(x->getid()))<<new QStandardItem(x->getname())<<new QStandardItem(QString::number(x->getsalary()));
-        model->appendRow(items);
-    }
-}
 
 void MainWindow::slotContextMenu(const QPoint &pos){
     auto index = ui->tableView->indexAt(pos);
@@ -76,19 +69,22 @@ void MainWindow::Addmember(){
     QLineEdit *salarytxt=new QLineEdit(&dialog);
     form.addRow("工资",salarytxt);
 
+    QLineEdit *citytxt=new QLineEdit(&dialog);
+    form.addRow("城市",citytxt);
+
     QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
         Qt::Horizontal, &dialog);
     form.addRow(&buttonBox);
     connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
     connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
     if (dialog.exec() == QDialog::Accepted) {
-        // 填入添加信息后要做什么
+        Decorater decorater; decorater.Add(idtxt->text().toStdString(),nametxt->text().toStdString(),salarytxt->text().toFloat(),citytxt->text().toStdString(),model);
         qDebug()<<nametxt->text();
     }
     //qDebug()<<"??";
 }
 
-void MainWindow::Serchmember()
+void MainWindow::Searchmember()
 {
 
 }
@@ -130,6 +126,7 @@ void MainWindow::modifyslot(){
     connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
     if (dialog.exec() == QDialog::Accepted) {
         // 填入添加信息后要做什么
+        
         qDebug()<<nametxt->text();
     }
     //qDebug()<<"??";

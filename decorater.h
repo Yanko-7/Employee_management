@@ -1,29 +1,25 @@
 #ifndef DECORATER_H
 #define DECORATER_H
 
+#include <mainwindow.h>
 #include <QString>
 
+#include <Employee.h>
+#include <set>
 
 
-class Decorater
-{
+
+class Decorater{
+
 public:
     Decorater();
-    int getid();
-    QString getname();
-    int getsalary();
-    Decorater(int,QString,int);
-    bool isemployee();
+    void Add(std::string idtxt,std::string nametxt,float salary,std::string city,QStandardItemModel *model);
+    void Del(std::string idtxt,QStandardItemModel *model);
+    void updateview(std::set<data::Employee>,QStandardItemModel *model);
 
 private:
 
 
-    int id;
-    QString name;
-    int salary;
-
-
-    bool is_employee=1;
 };
 
 #endif // DECORATER_H

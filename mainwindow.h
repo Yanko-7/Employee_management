@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <decorater.h>
 #include <QList>
 #include <QMainWindow>
 #include <qstandarditemmodel.h>
@@ -11,6 +10,7 @@
 #include <QLabel>
 #include <QMenu>
 #include <QStandardItemModel>
+#include <decorater.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,7 +24,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void init();
-    void updateview(QList<Decorater*> list);
 
 private:
     Ui::MainWindow *ui;
@@ -35,7 +34,7 @@ private:
 public slots:
     void slotContextMenu(const QPoint &pos);
     void Addmember();
-    void Serchmember();
+    void Searchmember();
     void delslot();
     void modifyslot();
 };

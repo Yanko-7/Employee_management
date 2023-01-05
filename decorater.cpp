@@ -4,21 +4,37 @@ Decorater::Decorater(){
 
 }
 
-int Decorater::getid(){
-    return id;
+
+void Decorater::Add(string idtxt, string nametxt, float salary,string city, QStandardItemModel *model){
+
 }
 
-QString Decorater::getname(){
-    return name;
+void Decorater::Del(string idtxt, QStandardItemModel *model){
+
 }
 
-int Decorater::getsalary(){
-    return salary;
+void Decorater::updateview(std::set<data::Employee> sett, QStandardItemModel *model){
+    model->removeRows(0,model->rowCount());
+    for(auto x:sett){
+        QList<QStandardItem*> items;
+        items<<new QStandardItem(QString::fromStdString(x.getID()))<<new QStandardItem(QString::fromStdString(x.getName()))<<new QStandardItem(QString::number(x.getSalary()))<<new QStandardItem(QString::fromStdString(x.getCity()));
+        model->appendRow(items);
+    }
 }
 
-Decorater::Decorater(int id1, QString name1, int salary1):id(id1),name(name1),salary(salary1){
-}
 
-bool Decorater::isemployee(){
-    return is_employee;
-}
+//void Decorater::updateview(){
+
+//    void MainWindow::updateview(QList<Decorater*> list){//更新talbeview  需要传入list
+//        model->removeRows(0,model->rowCount());
+//        for(auto x:list){
+//            QList<QStandardItem*> items;
+//            items<<new QStandardItem(QString::number(x->getid()))<<new QStandardItem(x->getname())<<new QStandardItem(QString::number(x->getsalary()));
+//            model->appendRow(items);
+//        }
+//    }
+//}
+
+
+
+

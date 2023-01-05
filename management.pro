@@ -9,13 +9,37 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    DatabaseUtil.cpp \
+    DiFactory.cpp \
+    Employee.cpp \
+    EmployeeDAO.cpp \
+    EmployeePosition.cpp \
+    Manager.cpp \
+    ManagerDAO.cpp \
+    Person.cpp \
+    User.cpp \
+    UserDAO.cpp \
     decorater.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    shell.c \
+    sqlite3.c
 
 HEADERS += \
+    DatabaseUtil.h \
+    DiFactory.h \
+    Employee.h \
+    EmployeeDAO.h \
+    Manager.h \
+    ManagerDAO.h \
+    Person.h \
+    User.h \
+    UserDAO.h \
     decorater.h \
-    mainwindow.h
+    mainwindow.h \
+    sqlite3.h \
+    sqlite3ext.h \
+    ui_mainwindow.h
 
 FORMS += \
     mainwindow.ui
