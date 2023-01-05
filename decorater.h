@@ -3,6 +3,8 @@
 
 #include <mainwindow.h>
 #include <QString>
+#include <Employee.h>>
+#include <Manager.h>
 
 #include <Employee.h>
 #include <set>
@@ -16,7 +18,8 @@ public:
     void Add(std::string idtxt,std::string nametxt,float salary,std::string city,QStandardItemModel *model);
     void Del(std::string idtxt,QStandardItemModel *model);
     void updateview(std::set<data::Employee>,QStandardItemModel *model);
-
+    bool loggin(std::string name,std::string password);
+    bool reggister(std::string name,std::string password);
 private:
 
 

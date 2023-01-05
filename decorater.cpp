@@ -6,7 +6,9 @@ Decorater::Decorater(){
 
 
 void Decorater::Add(string idtxt, string nametxt, float salary,string city, QStandardItemModel *model){
-
+    data::Employee *newemployee = new data::Employee(idtxt,nametxt,city,data::EmployeePosition::Senior,0,salary);
+    *data::Manager::getInstance()+*newemployee;
+    updateview(data::Manager::getInstance()->SearchEmployee(),model);
 }
 
 void Decorater::Del(string idtxt, QStandardItemModel *model){
@@ -20,6 +22,14 @@ void Decorater::updateview(std::set<data::Employee> sett, QStandardItemModel *mo
         items<<new QStandardItem(QString::fromStdString(x.getID()))<<new QStandardItem(QString::fromStdString(x.getName()))<<new QStandardItem(QString::number(x.getSalary()))<<new QStandardItem(QString::fromStdString(x.getCity()));
         model->appendRow(items);
     }
+}
+
+bool Decorater::loggin(string name, string password){
+    return true;
+}
+
+bool Decorater::reggister(string name, string password){
+
 }
 
 

@@ -20,6 +20,7 @@ SOURCES += \
     User.cpp \
     UserDAO.cpp \
     decorater.cpp \
+    login.cpp \
     main.cpp \
     mainwindow.cpp \
     shell.c \
@@ -36,6 +37,7 @@ HEADERS += \
     User.h \
     UserDAO.h \
     decorater.h \
+    login.h \
     mainwindow.h \
     sqlite3.h \
     sqlite3ext.h \
