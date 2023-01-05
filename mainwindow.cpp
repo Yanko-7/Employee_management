@@ -31,11 +31,15 @@ void MainWindow::init(){
 
     //右键菜单
     menu = new QMenu(ui->tableView);
-    QAction *modifyaction = new QAction("修改");
+    QAction *modifyaction = new QAction("修改员工信息");
+    QAction *modifMangeryaction = new QAction("修改员工管理员");
     QAction *delaction = new QAction("删除");
-    menu->addAction(modifyaction);menu->addAction(delaction);
+    menu->addAction(modifyaction);
+    menu->addAction(modifMangeryaction);
+    menu->addAction(delaction);
     connect(ui->tableView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotContextMenu(QPoint)));
     connect(modifyaction,SIGNAL(triggered()),this,SLOT(modifyslot()));
+    connect(modifMangeryaction,SIGNAL(triggered()),this,SLOT(modifyMangerslot()));
     connect(delaction,SIGNAL(triggered()),this,SLOT(delslot()));
 
     //test
@@ -76,25 +80,27 @@ void MainWindow::Addmember(){
     form.addRow(&buttonBox);
     connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
     connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+
     if (dialog.exec() == QDialog::Accepted) {
         Decorater decorater; decorater.Add(idtxt->text().toStdString(),nametxt->text().toStdString(),salarytxt->text().toFloat(),citytxt->text().toStdString(),model);
-        qDebug()<<nametxt->text();
     }
-    //qDebug()<<"??";
 }
 
-void MainWindow::Searchmember()
-{
-
+void MainWindow::Searchmember(){
+    int searchtype=0;
+    data::EmployeePosition pos;
+    if(ui->comboBox->currentText()=="模糊搜索")searchtype=1;
+    if(ui->comboBox_3->currentText()=="Ordinary")pos=data::EmployeePosition::Ordinary;
+    if(ui->comboBox_3->currentText()=="Internship")pos=data::EmployeePosition::Internship;
+    if(ui->comboBox_3->currentText()=="Senior")pos=data::EmployeePosition::Senior;
+    Decorater decorater;decorater.search(searchtype,pos,model);
 }
 
 
 
 void MainWindow::delslot(){
-    int id=model->data(model->index(ui->tableView->currentIndex().row(),0)).toInt();
-    //qDebug()<<"no";
-    //得到要删除的员工id后要做什么
-
+    std::string id=model->data(model->index(ui->tableView->currentIndex().row(),0)).toString().toStdString();
+    Decorater decorater;decorater.Del(id,model);
 }
 
 void MainWindow::modifyslot(){
@@ -102,6 +108,10 @@ void MainWindow::modifyslot(){
     int id=model->data(model->index(ui->tableView->currentIndex().row(),0)).toInt();
     QString name=model->data(model->index(ui->tableView->currentIndex().row(),1)).toString();
     int salary=model->data(model->index(ui->tableView->currentIndex().row(),2)).toInt();
+    QString city=model->data(model->index(ui->tableView->currentIndex().row(),3)).toString();
+    QString pos=model->data(model->index(ui->tableView->currentIndex().row(),4)).toString();
+
+
     QDialog dialog(this);
     QFormLayout form(&dialog);
     form.addRow(new QLabel("要修改的员工信息:"));
@@ -118,17 +128,31 @@ void MainWindow::modifyslot(){
     salarytxt->setText(QString::number(salary));
     form.addRow("工资",salarytxt);
 
+    QLineEdit *citytxt=new QLineEdit(&dialog);
+    citytxt->setText(city);
+    form.addRow("城市",citytxt);
+
+    //这里明天换成cocombox
+    QLineEdit *postxt=new QLineEdit(&dialog);
+    postxt->setText(pos);
+    form.addRow("职位",postxt);
+
+
+
     QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
         Qt::Horizontal, &dialog);
     form.addRow(&buttonBox);
     connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
     connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+
     if (dialog.exec() == QDialog::Accepted) {
-        // 填入添加信息后要做什么
-        
-        qDebug()<<nametxt->text();
+        //这里的职位先不管,后面再改
+        Decorater decorater;decorater.Modify(idtxt->text().toStdString(),nametxt->text().toStdString(),salarytxt->text().toFloat(),citytxt->text().toStdString(),data::EmployeePosition::Internship,model);
     }
-    //qDebug()<<"??";
+}
+
+void MainWindow::modifyMangerslot(){
+
 }
 
 

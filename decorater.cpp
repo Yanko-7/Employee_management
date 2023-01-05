@@ -4,6 +4,12 @@ Decorater::Decorater(){
 
 }
 
+void Decorater::search(int searchtype, data::EmployeePosition,QStandardItemModel *model){
+    //
+    //
+    updateview(data::Manager::getInstance()->SearchEmployee(),model);
+}
+
 
 void Decorater::Add(string idtxt, string nametxt, float salary,string city, QStandardItemModel *model){
     data::Employee *newemployee = new data::Employee(idtxt,nametxt,city,data::EmployeePosition::Senior,0,salary);
@@ -12,8 +18,16 @@ void Decorater::Add(string idtxt, string nametxt, float salary,string city, QSta
 }
 
 void Decorater::Del(string idtxt, QStandardItemModel *model){
+    //
+    //
+    //
+    updateview(data::Manager::getInstance()->SearchEmployee(),model);
+}
+
+void Decorater::Modify(string idtxt, string nametxt, float slary, string citytxt, data::EmployeePosition pos, QStandardItemModel *model){
 
 }
+
 
 void Decorater::updateview(std::set<data::Employee> sett, QStandardItemModel *model){
     model->removeRows(0,model->rowCount());
@@ -25,6 +39,7 @@ void Decorater::updateview(std::set<data::Employee> sett, QStandardItemModel *mo
 }
 
 bool Decorater::loggin(string name, string password){
+
     return true;
 }
 

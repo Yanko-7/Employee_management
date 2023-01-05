@@ -47,12 +47,7 @@
               </item>
               <item>
                <property name="text">
-                <string>职员</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>管理者</string>
+                <string>Internship</string>
                </property>
               </item>
              </widget>

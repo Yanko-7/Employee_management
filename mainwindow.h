@@ -37,5 +37,6 @@ public slots:
     void Searchmember();
     void delslot();
     void modifyslot();
+    void modifyMangerslot();
 };
 #endif // MAINWINDOW_H
