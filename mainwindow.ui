@@ -38,6 +38,16 @@
               </item>
               <item>
                <property name="text">
+                <string>Senior</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Ordinary</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
                 <string>Internship</string>
                </property>
               </item>

@@ -117,7 +117,7 @@ void MainWindow::delslot(){
 
 void MainWindow::modifyslot(){
 
-    int id=model->data(model->index(ui->tableView->currentIndex().row(),0)).toInt();
+    QString id=model->data(model->index(ui->tableView->currentIndex().row(),0)).toString();
     QString name=model->data(model->index(ui->tableView->currentIndex().row(),1)).toString();
     int salary=model->data(model->index(ui->tableView->currentIndex().row(),2)).toInt();
     QString city=model->data(model->index(ui->tableView->currentIndex().row(),3)).toString();
@@ -140,7 +140,6 @@ void MainWindow::modifyslot(){
     citytxt->setText(city);
     form.addRow("城市",citytxt);
 
-    //这里明天换成cocombox
     QComboBox *posbox = new QComboBox(&dialog);
     QStringList list;
     for(int i=1;i<4;i++){
@@ -162,7 +161,7 @@ void MainWindow::modifyslot(){
         if(posbox->currentText()=="Ordinary")pos=data::EmployeePosition::Ordinary;
         if(posbox->currentText()=="Internship")pos=data::EmployeePosition::Internship;
         if(posbox->currentText()=="Senior")pos=data::EmployeePosition::Senior;
-        Decorater decorater;decorater.Modify(to_string(id),nametxt->text().toStdString(),salarytxt->text().toFloat(),citytxt->text().toStdString(),pos,model);
+        Decorater decorater;decorater.Modify(id.toStdString(),nametxt->text().toStdString(),salarytxt->text().toFloat(),citytxt->text().toStdString(),pos,model);
     }
 }
 
@@ -171,7 +170,7 @@ void MainWindow::modifyMangerslot(){
     QFormLayout form(&dialog);
     QLineEdit *Mangeridtxt=new QLineEdit(&dialog);
     form.addRow("要修改成的管理员ID:",Mangeridtxt);
-
+    QString id=model->data(model->index(ui->tableView->currentIndex().row(),0)).toString();
     QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
         Qt::Horizontal, &dialog);
     form.addRow(&buttonBox);
@@ -180,7 +179,7 @@ void MainWindow::modifyMangerslot(){
 
     if (dialog.exec() == QDialog::Accepted) {
         Decorater decorater;
-        decorater.ModifyManger(Mangeridtxt->text().toStdString(),model);
+        decorater.ModifyManger(id.toStdString(),Mangeridtxt->text().toStdString(),model);
     }
 }
 
