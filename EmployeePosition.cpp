@@ -3,7 +3,8 @@ namespace data
 {
 	enum class EmployeePosition
 	{
-		Internship = 1,
+        All =0,
+        Internship,
 		Ordinary,
 		Senior
 	};

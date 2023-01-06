@@ -22,6 +22,7 @@ public:
     void updateview(std::set<data::Employee>,QStandardItemModel *model);
     bool loggin(std::string name,std::string password);
     bool reggister(std::string name,std::string password);
+    void ModifyManger(std::string Mangeridtxt,QStandardItemModel *model);
 private:
 
 

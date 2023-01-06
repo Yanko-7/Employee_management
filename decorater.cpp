@@ -47,6 +47,10 @@ bool Decorater::reggister(string name, string password){
 
 }
 
+void Decorater::ModifyManger(string Mangeridtxt, QStandardItemModel *model){
+
+}
+
 
 //void Decorater::updateview(){
 

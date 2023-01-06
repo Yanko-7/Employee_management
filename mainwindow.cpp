@@ -14,7 +14,7 @@ MainWindow::~MainWindow(){
 void MainWindow::init(){
     //表头设置
     QStringList table_headers;
-    table_headers<<"职员ID"<<"姓名"<<"工资"<<"城市";
+    table_headers<<"职员ID"<<"姓名"<<"工资"<<"城市"<<"职位";
     model->setHorizontalHeaderLabels(table_headers);
 
     //一些按键的信号槽绑定
@@ -42,10 +42,10 @@ void MainWindow::init(){
     connect(modifMangeryaction,SIGNAL(triggered()),this,SLOT(modifyMangerslot()));
     connect(delaction,SIGNAL(triggered()),this,SLOT(delslot()));
 
+
+    Decorater decorater;decorater.updateview(data::Manager::getInstance()->SearchEmployee(),model);
     //test
     qDebug()<<model->rowCount();
-    //QList<Decorater*> list;list<<new Decorater(1,"w1",2)<<new Decorater(2,"w2",3);
-    //updateview(list);
     //
 }
 
@@ -88,7 +88,7 @@ void MainWindow::Addmember(){
 
 void MainWindow::Searchmember(){
     int searchtype=0;
-    data::EmployeePosition pos;
+    data::EmployeePosition pos=data::EmployeePosition::All;
     if(ui->comboBox->currentText()=="模糊搜索")searchtype=1;
     if(ui->comboBox_3->currentText()=="Ordinary")pos=data::EmployeePosition::Ordinary;
     if(ui->comboBox_3->currentText()=="Internship")pos=data::EmployeePosition::Internship;
@@ -152,7 +152,21 @@ void MainWindow::modifyslot(){
 }
 
 void MainWindow::modifyMangerslot(){
+    QDialog dialog(this);
+    QFormLayout form(&dialog);
+    QLineEdit *Mangeridtxt=new QLineEdit(&dialog);
+    form.addRow("要修改成的管理员ID:",Mangeridtxt);
 
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+        Qt::Horizontal, &dialog);
+    form.addRow(&buttonBox);
+    connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+    connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+
+    if (dialog.exec() == QDialog::Accepted) {
+        Decorater decorater;
+        decorater.ModifyManger(Mangeridtxt->text().toStdString(),model);
+    }
 }
 
 
