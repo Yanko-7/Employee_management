@@ -12,8 +12,8 @@ void Decorater::search(int searchtype, string idtxt,data::EmployeePosition,QStan
 
 
 void Decorater::Add(string idtxt, string nametxt, float salary,string city,data::EmployeePosition pos,QStandardItemModel *model){
-    data::Employee *newemployee = new data::Employee(idtxt,nametxt,city,pos,0,salary);
-    *data::Manager::getInstance()+*newemployee;
+    //data::Employee *newemployee = new data::Employee(idtxt,nametxt,city,pos,0,salary);
+    //*data::Manager::getInstance()+*newemployee;
     //updateview(data::Manager::getInstance()->SearchEmployee(),model);
 }
 

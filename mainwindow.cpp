@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
+#include <QFormLayout>
 using namespace data;
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) , ui(new Ui::MainWindow){
@@ -28,7 +30,8 @@ void MainWindow::init(){
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->setContextMenuPolicy(Qt::CustomContextMenu);
-
+    //setPushButtonQss(ui->AddButton);
+    //setLineEditQss(ui->lineEdit);
     //右键菜单
     menu = new QMenu(ui->tableView);
     QAction *modifyaction = new QAction("修改员工信息");
@@ -47,6 +50,32 @@ void MainWindow::init(){
     //test
     qDebug()<<model->rowCount();
     //
+}
+
+QString MainWindow::setPushButtonQss(QPushButton *btn, int radius, int padding, const QString &normalColor, const QString &normalTextColor, const QString &hoverColor, const QString &hoverTextColor, const QString &pressedColor, const QString &pressedTextColor){
+    QStringList list;
+        list.append(QString("QPushButton{border-style:none;padding:%1px;border-radius:%2px;color:%3;background:%4;}")
+                    .arg(padding).arg(radius).arg(normalTextColor).arg(normalColor));
+        list.append(QString("QPushButton:hover{color:%1;background:%2;}")
+                    .arg(hoverTextColor).arg(hoverColor));
+        list.append(QString("QPushButton:pressed{color:%1;background:%2;}")
+                    .arg(pressedTextColor).arg(pressedColor));
+
+        QString qss = list.join("");
+        btn->setStyleSheet(qss);
+        return qss;
+}
+
+QString MainWindow::setLineEditQss(QLineEdit *txt, int radius, int borderWidth, const QString &normalColor, const QString &focusColor){
+    QStringList list;
+        list.append(QString("QLineEdit{border-style:none;padding:3px;border-radius:%1px;border:%2px solid %3;}")
+                    .arg(radius).arg(borderWidth).arg(normalColor));
+        list.append(QString("QLineEdit:focus{border:%1px solid %2;}")
+                    .arg(borderWidth).arg(focusColor));
+
+        QString qss = list.join("");
+        txt->setStyleSheet(qss);
+        return qss;
 }
 
 

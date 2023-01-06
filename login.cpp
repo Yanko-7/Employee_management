@@ -11,14 +11,20 @@
 Login::Login(QDialog *parent):QDialog(parent){
 
     form = new QFormLayout(this);
+
     UserName=new QLineEdit(this);
-    form->addRow("用户名",UserName);
+    MainWindow::setLineEditQss(UserName);
+    form->addRow("用户名:",UserName);
 
     UserPassword=new QLineEdit(this);
-    form->addRow("密码",UserPassword);
+    MainWindow::setLineEditQss(UserPassword);
+    form->addRow("密码:",UserPassword);
 
     QPushButton *load = new QPushButton("登录",this);
     QPushButton *regst = new QPushButton("注册",this);
+
+    MainWindow::setPushButtonQss(load);
+    MainWindow::setPushButtonQss(regst);
     form->addRow(load,regst);
     connect(load,&QPushButton::clicked,this,&Login::loggin);
     connect(regst,&QPushButton::clicked,this,&Login::reggister);
