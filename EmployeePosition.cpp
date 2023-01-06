@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 namespace data
 {
 	enum class EmployeePosition
@@ -8,4 +9,5 @@ namespace data
 		Ordinary,
 		Senior
 	};
+    static const std::string PosString[]={"All","Internship","Ordinary","Senior"};
 }

@@ -43,7 +43,7 @@ void MainWindow::init(){
     connect(delaction,SIGNAL(triggered()),this,SLOT(delslot()));
 
 
-    Decorater decorater;decorater.updateview(data::Manager::getInstance()->SearchEmployee(),model);
+    //Decorater decorater;decorater.updateview(data::Manager::getInstance()->SearchEmployee(),model);
     //test
     qDebug()<<model->rowCount();
     //
@@ -75,6 +75,14 @@ void MainWindow::Addmember(){
     QLineEdit *citytxt=new QLineEdit(&dialog);
     form.addRow("城市",citytxt);
 
+    QComboBox *posbox = new QComboBox(&dialog);
+    QStringList list;
+    for(int i=1;i<4;i++){
+        list<<QString::fromStdString(PosString[i]);
+    }
+    posbox->addItems(list);
+    form.addRow("职位",posbox);
+
     QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
         Qt::Horizontal, &dialog);
     form.addRow(&buttonBox);
@@ -82,18 +90,22 @@ void MainWindow::Addmember(){
     connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
 
     if (dialog.exec() == QDialog::Accepted) {
-        Decorater decorater; decorater.Add(idtxt->text().toStdString(),nametxt->text().toStdString(),salarytxt->text().toFloat(),citytxt->text().toStdString(),model);
+        data::EmployeePosition pos=data::EmployeePosition::All;
+        if(posbox->currentText()=="Ordinary")pos=data::EmployeePosition::Ordinary;
+        if(posbox->currentText()=="Internship")pos=data::EmployeePosition::Internship;
+        if(posbox->currentText()=="Senior")pos=data::EmployeePosition::Senior;
+        Decorater decorater; decorater.Add(idtxt->text().toStdString(),nametxt->text().toStdString(),salarytxt->text().toFloat(),citytxt->text().toStdString(),pos,model);
     }
 }
 
 void MainWindow::Searchmember(){
     int searchtype=0;
+    if(ui->lineEdit->text().isEmpty())searchtype=1;
     data::EmployeePosition pos=data::EmployeePosition::All;
-    if(ui->comboBox->currentText()=="模糊搜索")searchtype=1;
     if(ui->comboBox_3->currentText()=="Ordinary")pos=data::EmployeePosition::Ordinary;
     if(ui->comboBox_3->currentText()=="Internship")pos=data::EmployeePosition::Internship;
     if(ui->comboBox_3->currentText()=="Senior")pos=data::EmployeePosition::Senior;
-    Decorater decorater;decorater.search(searchtype,pos,model);
+    Decorater decorater;decorater.search(searchtype,ui->lineEdit->text().toStdString(),pos,model);
 }
 
 
@@ -116,10 +128,6 @@ void MainWindow::modifyslot(){
     QFormLayout form(&dialog);
     form.addRow(new QLabel("要修改的员工信息:"));
 
-    QLineEdit *idtxt=new QLineEdit(&dialog);
-    idtxt->setText(QString::number(id));
-    form.addRow("员工ID",idtxt);
-
     QLineEdit *nametxt=new QLineEdit(&dialog);
     nametxt->setText(name);
     form.addRow("姓名",nametxt);
@@ -133,9 +141,13 @@ void MainWindow::modifyslot(){
     form.addRow("城市",citytxt);
 
     //这里明天换成cocombox
-    QLineEdit *postxt=new QLineEdit(&dialog);
-    postxt->setText(pos);
-    form.addRow("职位",postxt);
+    QComboBox *posbox = new QComboBox(&dialog);
+    QStringList list;
+    for(int i=1;i<4;i++){
+        list<<QString::fromStdString(PosString[i]);
+    }
+    posbox->addItems(list);
+    form.addRow("职位",posbox);
 
 
 
@@ -146,8 +158,11 @@ void MainWindow::modifyslot(){
     connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
 
     if (dialog.exec() == QDialog::Accepted) {
-        //这里的职位先不管,后面再改
-        Decorater decorater;decorater.Modify(idtxt->text().toStdString(),nametxt->text().toStdString(),salarytxt->text().toFloat(),citytxt->text().toStdString(),data::EmployeePosition::Internship,model);
+        data::EmployeePosition pos=data::EmployeePosition::All;
+        if(posbox->currentText()=="Ordinary")pos=data::EmployeePosition::Ordinary;
+        if(posbox->currentText()=="Internship")pos=data::EmployeePosition::Internship;
+        if(posbox->currentText()=="Senior")pos=data::EmployeePosition::Senior;
+        Decorater decorater;decorater.Modify(to_string(id),nametxt->text().toStdString(),salarytxt->text().toFloat(),citytxt->text().toStdString(),pos,model);
     }
 }
 

@@ -40,8 +40,7 @@ HEADERS += \
     login.h \
     mainwindow.h \
     sqlite3.h \
-    sqlite3ext.h \
-    ui_mainwindow.h
+    sqlite3ext.h
 
 FORMS += \
     mainwindow.ui

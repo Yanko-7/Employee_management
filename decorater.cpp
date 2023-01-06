@@ -4,15 +4,15 @@ Decorater::Decorater(){
 
 }
 
-void Decorater::search(int searchtype, data::EmployeePosition,QStandardItemModel *model){
+void Decorater::search(int searchtype, string idtxt,data::EmployeePosition,QStandardItemModel *model){//searchtype==1说明没有指定ID,
     //
     //
     updateview(data::Manager::getInstance()->SearchEmployee(),model);
 }
 
 
-void Decorater::Add(string idtxt, string nametxt, float salary,string city, QStandardItemModel *model){
-    data::Employee *newemployee = new data::Employee(idtxt,nametxt,city,data::EmployeePosition::Senior,0,salary);
+void Decorater::Add(string idtxt, string nametxt, float salary,string city,data::EmployeePosition pos,QStandardItemModel *model){
+    data::Employee *newemployee = new data::Employee(idtxt,nametxt,city,pos,0,salary);
     *data::Manager::getInstance()+*newemployee;
     updateview(data::Manager::getInstance()->SearchEmployee(),model);
 }
