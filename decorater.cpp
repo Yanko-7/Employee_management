@@ -44,7 +44,7 @@ bool Decorater::loggin(string name, string password){
 }
 
 bool Decorater::reggister(string name, string password){
-
+    return false;
 }
 
 

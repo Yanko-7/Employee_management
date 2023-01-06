@@ -4,6 +4,7 @@
 #include <QFormLayout>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
 #include <QPushButton>
 
 
@@ -35,8 +36,16 @@ void Login::loggin(){
     if(decorater.loggin(UserName->text().toStdString(),UserPassword->text().toStdString())){
         accept();
     }
+    else{
+        QMessageBox::critical(this, "提示",  "登录失败");
+    }
 }
 void Login::reggister(){
     Decorater decorater;
-    decorater.reggister(UserName->text().toStdString(),UserPassword->text().toStdString());
+    if(decorater.reggister(UserName->text().toStdString(),UserPassword->text().toStdString())){
+        QMessageBox::about(this, "提示",  "注册成功");
+    }
+    else{
+        QMessageBox::critical(this, "提示",  "注册失败");
+    }
 }
