@@ -1,4 +1,4 @@
-#include "decorater.h"
+﻿#include "decorater.h"
 #include "login.h"
 
 #include <QFormLayout>
@@ -9,43 +9,43 @@
 
 
 
-Login::Login(QDialog *parent):QDialog(parent){
+Login::Login(QDialog* parent) :QDialog(parent) {
 
     form = new QFormLayout(this);
 
-    UserName=new QLineEdit(this);
+    UserName = new QLineEdit(this);
     MainWindow::setLineEditQss(UserName);
-    form->addRow("用户名:",UserName);
+    form->addRow("Username:", UserName);
 
-    UserPassword=new QLineEdit(this);
+    UserPassword = new QLineEdit(this);
     MainWindow::setLineEditQss(UserPassword);
-    form->addRow("密码:",UserPassword);
+    form->addRow("password:", UserPassword);
 
-    QPushButton *load = new QPushButton("登录",this);
-    QPushButton *regst = new QPushButton("注册",this);
+    QPushButton* load = new QPushButton("Login", this);
+    QPushButton* regst = new QPushButton("Register", this);
 
     MainWindow::setPushButtonQss(load);
     MainWindow::setPushButtonQss(regst);
-    form->addRow(load,regst);
-    connect(load,&QPushButton::clicked,this,&Login::loggin);
-    connect(regst,&QPushButton::clicked,this,&Login::reggister);
+    form->addRow(load, regst);
+    connect(load, &QPushButton::clicked, this, &Login::loggin);
+    connect(regst, &QPushButton::clicked, this, &Login::reggister);
 }
 
-void Login::loggin(){
+void Login::loggin() {
     Decorater decorater;
-    if(decorater.loggin(UserName->text().toStdString(),UserPassword->text().toStdString())){
+    if (decorater.loggin(UserName->text().toStdString(), UserPassword->text().toStdString())) {
         accept();
     }
-    else{
-        QMessageBox::critical(this, "提示",  "登录失败");
+    else {
+        QMessageBox::critical(this, "Note", "User non-existent or uncorrect password");
     }
 }
-void Login::reggister(){
+void Login::reggister() {
     Decorater decorater;
-    if(decorater.reggister(UserName->text().toStdString(),UserPassword->text().toStdString())){
-        QMessageBox::about(this, "提示",  "注册成功");
+    if (decorater.reggister(UserName->text().toStdString(), UserPassword->text().toStdString())) {
+        QMessageBox::about(this, "Note", "Succeed");
     }
-    else{
-        QMessageBox::critical(this, "提示",  "注册失败");
+    else {
+        QMessageBox::critical(this, "Note", "User already exist");
     }
 }

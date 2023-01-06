@@ -11,7 +11,7 @@ namespace data
 		friend class Manager;
 		Employee(string);
 		Employee(string id, string name, string city, EmployeePosition position, string manager_id, float salary);
-		Employee(string id, string name, float salary);
+		Employee(string id, string name, string city, EmployeePosition position, float salary);
 		Employee(const Employee&);
 		friend bool operator<(const Employee&, const Employee&);
 		string getCity();

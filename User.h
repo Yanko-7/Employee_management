@@ -7,8 +7,8 @@ namespace data
 	{
 	public:
 		User(string id, string password);
-		bool Login(string id, string password);
-		bool Register(string id, string password);
+		bool Login();
+		bool Register();
 		string password;
 		string id;
 	};

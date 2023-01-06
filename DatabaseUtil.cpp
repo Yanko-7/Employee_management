@@ -43,8 +43,17 @@ void DatabaseUtil::createTable()
 {
     //创建表
     int ret;
+    //创建user表
+    string user = "create table if not exists user(id text, password text, primary key(id)); ";
+    ret = sqlite3_exec(pdb, user.c_str(), 0, 0, NULL);
+    if (ret != SQLITE_OK) {
+        cout << "表 user 创建失败：" << sqlite3_errmsg(pdb) << endl;
+    }
+    else {
+        cout << "表 user 创建/获取成功！" << endl;
+    }
     //创建manager表
-    string manager = "create table if not exists manager( id text, name text, primary key(id) ); ";
+    string manager = "create table if not exists manager( id text, name text, primary key(id), constraint fk_user foreign key(id) references user(id) ); ";
     ret = sqlite3_exec(pdb, manager.c_str(), 0, 0, NULL);
     if (ret != SQLITE_OK) {
         cout << "表 manager 创建失败：" << sqlite3_errmsg(pdb) << endl;
@@ -60,15 +69,6 @@ void DatabaseUtil::createTable()
     }
     else {
         cout << "表 employee 创建/获取成功！" << endl;
-    }
-    //创建user表
-    string user = "create table if not exists user(id text, password text, primary key(id), constraint fk_manager foreign key(id) references manager(id)); ";
-    ret = sqlite3_exec(pdb, user.c_str(), 0, 0, NULL);
-    if (ret != SQLITE_OK) {
-        cout << "表 user 创建失败：" << sqlite3_errmsg(pdb) << endl;
-    }
-    else {
-        cout << "表 user 创建/获取成功！" << endl;
     }
     return;
 }

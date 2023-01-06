@@ -72,7 +72,12 @@
               </property>
               <item>
                <property name="text">
-                <string>所有类别</string>
+                <string>All</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>test</string>
                </property>
               </item>
               <item>
@@ -102,7 +107,7 @@
             <item>
              <widget class="QPushButton" name="SearchButton">
               <property name="text">
-               <string>搜索ID</string>
+               <string>Search ID</string>
               </property>
              </widget>
             </item>
@@ -130,7 +135,7 @@
              <string notr="true"/>
             </property>
             <property name="text">
-             <string>添加</string>
+             <string>Add</string>
             </property>
             <property name="iconSize">
              <size>
@@ -169,6 +174,18 @@
           <property name="editTriggers">
            <set>QAbstractItemView::NoEditTriggers</set>
           </property>
+          <attribute name="horizontalHeaderVisible">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="horizontalHeaderHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderHighlightSections">
+           <bool>false</bool>
+          </attribute>
          </widget>
         </item>
        </layout>

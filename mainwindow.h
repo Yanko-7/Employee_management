@@ -22,34 +22,34 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
     void init();
-    static QString setPushButtonQss(QPushButton *btn,                               //æŒ‰é’®å¯¹è±¡
-                                        int radius = 5,                                 //åœ†è§’åŠå¾„
-                                        int padding = 8,                                //é—´è·
-                                        const QString &normalColor = "#34495E",         //æ­£å¸¸é¢œè‰²
-                                        const QString &normalTextColor = "#FFFFFF",     //æ–‡å­—é¢œè‰²
-                                        const QString &hoverColor = "#4E6D8C",          //æ‚¬åœé¢œè‰²
-                                        const QString &hoverTextColor = "#F0F0F0",      //æ‚¬åœæ–‡å­—é¢œè‰²
-                                        const QString &pressedColor = "#2D3E50",        //æŒ‰ä¸‹é¢œè‰²
-                                        const QString &pressedTextColor = "#B8C6D1");   //æŒ‰ä¸‹æ–‡å­—é¢œè‰²
+    static QString setPushButtonQss(QPushButton* btn,                               //°´Å¥¶ÔÏó
+        int radius = 5,                                 //Ô²½Ç°ë¾¶
+        int padding = 8,                                //¼ä¾à
+        const QString& normalColor = "#34495E",         //Õı³£ÑÕÉ«
+        const QString& normalTextColor = "#FFFFFF",     //ÎÄ×ÖÑÕÉ«
+        const QString& hoverColor = "#4E6D8C",          //ĞüÍ£ÑÕÉ«
+        const QString& hoverTextColor = "#F0F0F0",      //ĞüÍ£ÎÄ×ÖÑÕÉ«
+        const QString& pressedColor = "#2D3E50",        //°´ÏÂÑÕÉ«
+        const QString& pressedTextColor = "#B8C6D1");   //°´ÏÂÎÄ×ÖÑÕÉ«
 
-        //è®¾ç½®æ–‡æœ¬æ¡†æ ·å¼
-        static QString setLineEditQss(QLineEdit *txt,                                   //æ–‡æœ¬æ¡†å¯¹è±¡
-                                      int radius = 3,                                   //åœ†è§’åŠå¾„
-                                      int borderWidth = 2,                              //è¾¹æ¡†å¤§å°
-                                      const QString &normalColor = "#DCE4EC",           //æ­£å¸¸é¢œè‰²
-                                      const QString &focusColor = "#34495E");
+//ÉèÖÃÎÄ±¾¿òÑùÊ½
+    static QString setLineEditQss(QLineEdit* txt,                                   //ÎÄ±¾¿ò¶ÔÏó
+        int radius = 3,                                   //Ô²½Ç°ë¾¶
+        int borderWidth = 2,                              //±ß¿ò´óĞ¡
+        const QString& normalColor = "#DCE4EC",           //Õı³£ÑÕÉ«
+        const QString& focusColor = "#34495E");
 
 private:
-    Ui::MainWindow *ui;
-    QStandardItemModel *model=new QStandardItemModel();
-    QMenu *menu;
+    Ui::MainWindow* ui;
+    QStandardItemModel* model = new QStandardItemModel();
+    QMenu* menu;
 
 
 public slots:
-    void slotContextMenu(const QPoint &pos);
+    void slotContextMenu(const QPoint& pos);
     void Addmember();
     void Searchmember();
     void delslot();

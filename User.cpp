@@ -6,7 +6,7 @@ data::User::User(string id, string password) :id(id), password(password)
 {
 }
 
-bool data::User::Login(string id, string password)
+bool data::User::Login()
 {
 	User* u = DiFactory::getInstance().getUserDAO().findData(id);
 	if (u != NULL && u->password == password)
@@ -17,7 +17,7 @@ bool data::User::Login(string id, string password)
 	return false;
 }
 
-bool data::User::Register(string id, string password)
+bool data::User::Register()
 {
 	User u(id, password);
 	if (DiFactory::getInstance().getUserDAO().findData(id) == NULL)

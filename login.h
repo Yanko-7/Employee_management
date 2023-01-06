@@ -7,18 +7,18 @@
 
 
 
-class Login:public QDialog
+class Login :public QDialog
 {
 public:
-    Login(QDialog *parent =NULL);
+    Login(QDialog* parent = NULL);
 
 public slots:
     void loggin();
     void reggister();
 private:
-    QFormLayout *form;
-    QLineEdit *UserName;
-    QLineEdit *UserPassword;
+    QFormLayout* form;
+    QLineEdit* UserName;
+    QLineEdit* UserPassword;
 };
 
 #endif // LOGIN_H

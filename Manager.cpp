@@ -65,10 +65,12 @@ bool data::Manager::ChangeEmployeeManager(string id, string manager_id)
     {
         return false;
     }
-    //查看数据库缓存是否存在该管理员
     Employee e = employeeMap.find(id)->second;
-    if (DiFactory::getInstance().getEmployeeDAO().updateData(e))
+    //查看数据库缓存是否存在该管理员
+    if (DiFactory::getInstance().getManagerDAO().findData(manager_id))
     {
+        e.manager_id = manager_id;
+        DiFactory::getInstance().getEmployeeDAO().updateData(e);
         employeeMap.find(id)->second.manager_id = manager_id;
         employeeMap.erase(id);
         return true;
@@ -101,7 +103,7 @@ Manager& Manager::operator+(const Employee& employee)
 }
 Manager& Manager::operator-(const Employee& employee)
 {
-    if (employeeMap.count(id) != 0)
+    if (employeeMap.count(employee.id) != 0)
     {
         //修改缓存map
         employeeMap.erase(employee.id);

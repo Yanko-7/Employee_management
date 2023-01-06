@@ -3,7 +3,7 @@
 bool UserDAO::saveData(User& user)
 {
     //保存
-    string sql = "insert into user(id,user_name,password) values(\"" + user.id + "\",\"" + user.password + "\"); ";
+    string sql = "insert into user(id,password) values(\"" + user.id + "\",\"" + user.password + "\"); ";
     return DatabaseUtil::getInstance().saveData(sql);
 }
 
@@ -37,8 +37,7 @@ User* UserDAO::findData(string& id)
     else {
         int idx = ncol;
         string id = result[idx];
-        string name = result[idx + 1];
-        string password = result[idx + 2];
+        string password = result[idx + 1];
         //释放资源
         sqlite3_free_table(result);
         return new User(id, password);

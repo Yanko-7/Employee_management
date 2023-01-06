@@ -6,7 +6,7 @@ Employee::Employee(string id) :Person(id)
 Employee::Employee(string id, string name, string city, EmployeePosition position, string manager_id, float salary) : Person(id, name), city(city), salary(salary), position(position), manager_id(manager_id)
 {
 }
-Employee::Employee(string id, string name, float salary): Person(id, name), salary(salary)
+Employee::Employee(string id, string name, string city, EmployeePosition position, float salary): Person(id, name),city(city),position(position),salary(salary)
 {
 }
 Employee::Employee(const Employee& employee) : Person(employee.id, employee.name), city(employee.city), salary(employee.salary), position(employee.position), manager_id(employee.manager_id)
